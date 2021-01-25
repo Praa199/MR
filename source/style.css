@@ -1,0 +1,54 @@
+.d-flex {
+    width: 850px;
+    padding: 0 200px;
+}
+
+/* -------------------------splash screen */
+
+
+
+
+.splash{
+    width: 858px; 
+    height: 557px;
+    background-color: darkblue;
+}
+
+.column{
+    display: flex;
+    flex-direction: column;
+}
+.column > div {
+    margin-top: 5%;
+    margin-left: 40%;
+    align-content: center;
+}
+
+
+
+
+
+
+/* --------------------------------game screen */
+
+
+
+
+
+
+/* ------------------------------------game over screen */
+
+
+div.game-over{
+        background-color: rgb(237, 184, 50);
+        width: 858px; 
+        height: 557px;
+}
+
+div.container{
+    margin-left: 33%;
+}
+
+.gameOver-text{
+    color: darkgreen;
+}
