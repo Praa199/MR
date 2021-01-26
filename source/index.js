@@ -1,12 +1,13 @@
 let canvas = document.querySelector('canvas')
 let ctx = canvas.getContext('2d')
-let splash = document.querySelector('.splash')
-let gOver = document.querySelector('.game-over')
+let splash = document.querySelector('.splash-container')
+let gOver = document.querySelector('.game-over-container')
 
 
 let intervalId = 0 
 let resource = 0;
 let lives = 3
+
 
 let moonImg = document.createElement('img')
 moonImg.src = '/images/moon NASA1.jpg'
@@ -22,7 +23,7 @@ singleIce.src = '/images/ice.png'
 
 let rover = new Image()
 rover.src = '/images/rov1.png'
-let roverXY = {x: 758, y:380 }
+let roverXY = [{x: 708, y:380 }]
 let movement 
 
 let craters = [{x: 0, y: 300 }]
@@ -32,45 +33,44 @@ let board = { x: 0 , y: 150 }
 let upArrow = false;
 let downArrow = false
 
+
 function draw(){
     
-    drawCraters()
-    drawIces()
+    drawCraters() 
+    drawIces() 
     drawRover()
-    drawScore()
     drawLives()
+    drawScore()
 }
 
 
 function drawRover(){
+    ctx.drawImage(rover, roverXY[0].x, roverXY[0].y)
     document.addEventListener('keydown', (event) => {
         if (event.keyCode == 38 || event.key == "ArrowUp") {
             upArrow = true;
             downArrow = false;
             
-            if (roverXY.y >= 130) {
-                roverXY.y -= 1
-                
+            if (roverXY[0].y >= 130) {
+                roverXY[0].y-=1
             } 
         }
         else if (event.keyCode == 40 || event.key == "ArrowDown") {
             upArrow = false;
             downArrow = true;
-            if (roverXY.y <= 550) {
-                roverXY.y += 1
-                
+            if (roverXY[0].y <= 550) {
+                roverXY[0].y+=1
             }
         }
-
-})
-
-document.addEventListener('keyup', (event) => {
-    upArrow = false;
-    downArrow = false;
-})
-
-ctx.drawImage(rover, 758, roverXY.y)
-ctx.drawImage(earth, 0, 5)
+        
+    })
+    
+    document.addEventListener('keyup', (event) => {
+        upArrow = false;
+        downArrow = false;
+    })
+    
+    ctx.drawImage(earth, 0, 5)
 }
 
 
@@ -91,12 +91,11 @@ function drawCraters(){
         )
     }
     
-    if (craters[i].x + (singleCrater.width -50) >= roverXY.x &&
-        (roverXY.y > craters[i].y &&  
-            (rover.y + rover.height < craters[i].y + (singleCrater.height - 20)))) {
+    if (craters[i].x + (singleCrater.width -25) >= roverXY[0].x &&
+        (roverXY[0].y > craters[i].y &&  
+            (rover.y + rover.height < craters[i].y + (singleCrater.height - 10)))) {
             console.log('ouch')
-        craters[i].x = 2000 
-        craters[i].y =  2000 
+
         lives--
     }
 
@@ -127,11 +126,11 @@ function drawIces(){
         (roverXY.y > ices[j].y &&  
             (rover.y + rover.height < ices[j].y + (singleCrater.height - 10)))) {
                 console.log('yay')
-                ices[j].x = 2000 
-                ices[j].y =  2000 
+
                 resource++
             }
         }
+        drawScore()
     }
 
     
@@ -150,10 +149,11 @@ ctx.fillText('Lives: ' + lives, 700, 90)
 }
 
 
+
 function startGame(){
     gOver.style.display = 'none'
     canvas.style.display = 'block'
-    splash.remove()
+    splash.style.display = 'none'
     
     intervalId = setInterval(() => {
         requestAnimationFrame(draw)
@@ -165,8 +165,8 @@ window.addEventListener('load', () => {
     gOver.style.display = 'none'
     canvas.style.display = 'none'
     splash.style.display = 'block'
-    let startBtn = document.querySelector('#game-start')
-    
+    let startBtn = document.querySelector('.start-game')
+
     startBtn.addEventListener('click', () => {
     startGame()    
     })
@@ -178,13 +178,19 @@ window.addEventListener('load', () => {
 function gameOver() {
     canvas.style.display = 'none'
     gOver.style.display = 'block'
-    
-    let replayBtn = document.querySelector('#replay')
+
+    clearInterval(intervalId)
+
+    let replayBtn = document.querySelector('.replay-button')
     
     replayBtn.addEventListener('click', () => {
-        startGame()    
-        clearInterval(intervalId)
+        splash.style.display = 'block'
+        
     })
 }
+
+
+
+
 
 
