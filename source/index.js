@@ -2,13 +2,8 @@ let canvas = document.querySelector('canvas')
 let ctx = canvas.getContext('2d')
 let splash = document.querySelector('.splash-container')
 let gOver = document.querySelector('.game-over-container')
-
-
-let intervalId = 0 
-let resource = 0;
-let lives = 3
-
-
+let startBtn = document.querySelector('.start-game')
+let replayBtn = document.querySelector('#replay-button')
 let moonImg = document.createElement('img')
 moonImg.src = '/images/moon NASA1.jpg'
 
@@ -23,46 +18,61 @@ singleIce.src = '/images/ice.png'
 
 let rover = new Image()
 rover.src = '/images/rov1.png'
-let roverXY = [{x: 708, y:380 }]
-let movement 
+let downArrow 
+let upArrow 
 
+let roverX = 790
+let roverY = 380
 let craters = [{x: 0, y: 300 }]
 
 let ices = [{x: 0, y: 0 }]
+
 let board = { x: 0 , y: 150 }
-let upArrow = false;
-let downArrow = false
+let intervalId = 0 
+let resource = 0;
+let lives = 3
+
 
 
 function draw(){
+    ctx.clearRect(0,0, canvas.width, canvas.height)
     
     drawCraters() 
     drawIces() 
     drawRover()
     drawLives()
     drawScore()
+    
+    
+    if(upArrow && roverY <= 550){
+        roverY-=10
+    } 
+    else{
+    roverY+=0
+}
+
+    if(downArrow && roverY >= 130){
+        roverY+=10
+    } 
+    else{
+        roverY+=0
+    }
 }
 
 
 function drawRover(){
-    ctx.drawImage(rover, roverXY[0].x, roverXY[0].y)
+    ctx.clearRect(0,0, rover.width, rover.height)
+    ctx.drawImage(rover, roverX, roverY)
     document.addEventListener('keydown', (event) => {
-        if (event.keyCode == 38 || event.key == "ArrowUp") {
-            upArrow = true;
-            downArrow = false;
-            
-            if (roverXY[0].y >= 130) {
-                roverXY[0].y-=1
-            } 
-        }
-        else if (event.keyCode == 40 || event.key == "ArrowDown") {
-            upArrow = false;
-            downArrow = true;
-            if (roverXY[0].y <= 550) {
-                roverXY[0].y+=1
-            }
-        }
         
+            if (event.keyCode == 38 || event.key == "ArrowUp" && roverY <540) {
+                upArrow = true;
+                downArrow = false;
+        }
+        else if (event.keyCode == 40 || event.key == "ArrowDown" && roverY>130) {
+                upArrow = false;
+                downArrow = true;
+            } 
     })
     
     document.addEventListener('keyup', (event) => {
@@ -80,7 +90,7 @@ function drawCraters(){
     for (let i = 0; i < craters.length; i++) {
     ctx.drawImage(singleCrater, craters[i].x, craters[i].y )
     craters[i].x+=5
-    craters[i].y+=.5
+    craters[i].y+=1
     
     if (craters[i].x == 300 ) {
         craters.push( {
@@ -91,17 +101,17 @@ function drawCraters(){
         )
     }
     
-    if (craters[i].x + (singleCrater.width -25) >= roverXY[0].x &&
-        (roverXY[0].y > craters[i].y &&  
+    if (craters[i].x + (singleCrater.width -25) >= roverX &&
+        (roverY > craters[i].y &&  
             (rover.y + rover.height < craters[i].y + (singleCrater.height - 10)))) {
             console.log('ouch')
-
-        lives--
+            lives-= 1
+            craters[i] = craters[i].length -1
     }
 
-    if(lives == 0){
-        gameOver()
-    }
+}
+if(lives == 0){
+    gameOver()
 }
 }
 
@@ -110,7 +120,7 @@ function drawIces(){
     for (let j = 0; j < ices.length; j++) {
         ctx.drawImage(singleIce, ices[j].x, ices[j].y )
     ices[j].x+=5
-    ices[j].y+=.5
+    ices[j].y+=1
     
     if (ices[j].x == 400) {
         ices.push(
@@ -122,15 +132,14 @@ function drawIces(){
             
         }
 
-        if (ices[j].x + (singleIce.width -10) >= roverXY.x &&
-        (roverXY.y > ices[j].y &&  
-            (rover.y + rover.height < ices[j].y + (singleCrater.height - 10)))) {
+        if (ices[j].x + (singleIce.width -10) >= roverX &&
+        (roverY > ices[j].y &&  
+            (rover.y + rover.height < ices[j].y + (singleIce.height - 5)))) {
                 console.log('yay')
-
-                resource++
+                resource+=1
+                ices[j] = ices[j].length -1 
             }
         }
-        drawScore()
     }
 
     
@@ -151,6 +160,17 @@ ctx.fillText('Lives: ' + lives, 700, 90)
 
 
 function startGame(){
+roverX = 790
+roverY = 380
+craters = [{x: 0, y: 300 }]
+
+ices = [{x: 0, y: 0 }]
+
+board = { x: 0 , y: 150 }
+intervalId = 0 
+resource = 0;
+lives = 3
+
     gOver.style.display = 'none'
     canvas.style.display = 'block'
     splash.style.display = 'none'
@@ -158,19 +178,23 @@ function startGame(){
     intervalId = setInterval(() => {
         requestAnimationFrame(draw)
     }, 100)
-    draw()
 }
 
 window.addEventListener('load', () => {
     gOver.style.display = 'none'
     canvas.style.display = 'none'
     splash.style.display = 'block'
-    let startBtn = document.querySelector('.start-game')
 
     startBtn.addEventListener('click', () => {
     startGame()    
-    })
+})
 
+replayBtn.addEventListener('click', () => {
+    console.log('replay')
+    resource = 0;
+    lives = 3
+    startGame()    
+})
 });    
 
 
@@ -181,16 +205,9 @@ function gameOver() {
 
     clearInterval(intervalId)
 
-    let replayBtn = document.querySelector('.replay-button')
     
-    replayBtn.addEventListener('click', () => {
-        splash.style.display = 'block'
-        
-    })
 }
 
-
-
-
-
-
+function rePlay(){
+    
+}
