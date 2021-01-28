@@ -1,13 +1,133 @@
+/* ----------------------------------------------splash screen
+ */
+
 .splash-container{
-    background-color: blueviolet;
+    background-image: url(/images/moonSun.png);
+    background-repeat: no-repeat;
     width: 858px; 
     height: 557px;
+}
+
+.title,
+.instructions,
+.start-game {
+    margin: 0 20%;
+}
+
+.title >h1{
+    font-size: 100px;
+    margin-top: 0;
+}
+
+.instructions > p{
+    font-size: 40px;
+    padding-left: 50px;
+    color: rgb(255, 254, 254);
+}
+
+.splash-container > button{
+    font-size: 20px;
+    font-weight: 800;
+    color: cornsilk;
+    margin-left: 35%;
+    height: 15%;
+    width: 20%;
+    background-color: rgb(6, 24, 126);
+    cursor: pointer;
 
 }
 
 
+
+
+
+
+
+
+
+/* ---------------------------------game over screen */
+
 .game-over-container{
-    background-color: aqua;
+    background-image: url(/images/explosion.png);
+    background-repeat: no-repeat;
     width: 858px; 
     height: 557px;
+}
+
+.game-over-container> div {
+    
+    margin-left: 20%;
+}
+
+.game-over-container> div > h3{
+    color:whitesmoke;
+    padding-top: 20%;
+    font-size: 35px;
+    padding-left: 50px;
+}
+
+.game-over-container> div >h1{
+    color:whitesmoke;
+    font-size: 80px;
+    margin-top: 10%;
+}
+
+.game-over-container> div > button{
+    font-size: 20px;
+    font-weight: 800;
+    color: cornsilk;
+    margin-left: 25%;
+    background-color: rgb(6, 24, 126);
+    cursor: pointer;
+
+}
+
+
+
+
+
+
+
+
+
+
+/* ---------------------------------------GAME WON SCREEN */
+
+
+
+.game-won-container{
+    background-image: url(/images/astrCeleb.jpg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 858px; 
+    height: 557px;
+}
+
+.game-won-container> div {
+    
+    margin-left: 20%;
+}
+
+.game-won-container> div > h3{
+    color:rgb(167, 121, 121);
+    padding-top: 20%;
+    font-size: 35px;
+    padding-left: 50px;
+}
+
+.game-won-container> div >h1{
+    color:whitesmoke;
+    font-size: 80px;
+    margin-top: 10%;
+    padding-left: 10%;
+}
+
+.game-won-container> div > button{
+    font-size: 20px;
+    font-weight: 800;
+    color: cornsilk;
+    margin-left: 25%;
+    background-color: rgb(6, 24, 126);
+    cursor: pointer;
+
 }

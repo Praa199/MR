@@ -8,11 +8,13 @@
 </head>
 <body>
   <div class="splash-container">
-    <div class="title"> <h1>MoonRover</h1></div>
-    <div class="instructions">
-      <p>Use the Up and Down <br>arrow keys to avoid <br>the craters and to reach <br> the resources needed.</p>
+    <div class="title"> 
+      <h1>MoonRover</h1>
     </div>
-    <button class="start-game">START</button>
+    <div class="instructions">
+      <p>Use the Up and Down <br>arrow keys to avoid <br>the craters and reach <br> the resources needed.</p>
+    </div>
+    <button class="start-game">START GAME</button>
   </div>
 
 
@@ -21,23 +23,26 @@
 
   <div class="game-over-container">
     <div>
-      <h3>Good job space explorer-</h3>
+      <h3>You have trashed the vehicle.</h3>
       <h1>GAME OVER</h1>
     </div>
-    <div class="scores-container">
-      <h2 id="scores">HIGH SCORES</h2>
-      <ul>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-      </ul>
-      <div>
+    <div>
         <button type="reset" id="replay-button"> RESTART</button>
-      </div>
+      
     </div>
   </div>
+
+
+ <div class="game-won-container">
+  <div>
+    <h3>Congratulations space explorer!</h3>
+    <h1>YOU WIN!!</h1>
+  </div>
+  <div>
+      <button type="reset" id="restart-button"> RESTART <br> GAME</button>
+    
+  </div>
+</div>
 
   <script src="index.js"></script>
 </body>

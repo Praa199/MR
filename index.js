@@ -1,9 +1,11 @@
 let canvas = document.querySelector('canvas')
 let ctx = canvas.getContext('2d')
 let splash = document.querySelector('.splash-container')
+let gWon = document.querySelector('.game-won-container')
 let gOver = document.querySelector('.game-over-container')
 let startBtn = document.querySelector('.start-game')
 let replayBtn = document.querySelector('#replay-button')
+let restartBtn = document.querySelector('#restart-button')
 let moonImg = document.createElement('img')
 moonImg.src = 'images/moon NASA1.jpg'
 
@@ -44,32 +46,26 @@ function draw(){
     drawScore()
     
     
-    if(upArrow && roverY <= 550){
+    if(upArrow && roverY>130){
         roverY-=10
     } 
-    else{
-    roverY+=0
-}
 
-    if(downArrow && roverY >= 130){
+    if(downArrow && roverY<500){
         roverY+=10
     } 
-    else{
-        roverY+=0
-    }
+
 }
 
-
 function drawRover(){
-    ctx.clearRect(0,0, rover.width, rover.height)
+    ctx.clearRect(roverX, roverY, rover.width, rover.height)
     ctx.drawImage(rover, roverX, roverY)
     document.addEventListener('keydown', (event) => {
         
-            if (event.keyCode == 38 || event.key == "ArrowUp" && roverY <540) {
+            if (event.keyCode == 38 || event.key == "ArrowUp") {
                 upArrow = true;
                 downArrow = false;
         }
-        else if (event.keyCode == 40 || event.key == "ArrowDown" && roverY>130) {
+        else if (event.keyCode == 40 || event.key == "ArrowDown") {
                 upArrow = false;
                 downArrow = true;
             } 
@@ -140,6 +136,9 @@ function drawIces(){
                 ices[j] = ices[j].length -1 
             }
         }
+        if( resource == 3){
+            gameWon()
+        }
     }
 
     
@@ -172,6 +171,7 @@ resource = 0;
 lives = 3
 
     gOver.style.display = 'none'
+    gWon.style.display = 'none'
     canvas.style.display = 'block'
     splash.style.display = 'none'
     
@@ -183,9 +183,17 @@ lives = 3
 window.addEventListener('load', () => {
     gOver.style.display = 'none'
     canvas.style.display = 'none'
+    gWon.style.display = 'none'
     splash.style.display = 'block'
 
     startBtn.addEventListener('click', () => {
+    startGame()    
+})
+
+restartBtn.addEventListener('click', () => {
+    console.log('restart')
+    resource = 0;
+    lives = 3
     startGame()    
 })
 
@@ -197,8 +205,6 @@ replayBtn.addEventListener('click', () => {
 })
 });    
 
-
-
 function gameOver() {
     canvas.style.display = 'none'
     gOver.style.display = 'block'
@@ -208,6 +214,12 @@ function gameOver() {
     
 }
 
-function rePlay(){
-    
+
+
+function gameWon() {
+    canvas.style.display = 'none'
+    gWon.style.display = 'block'
+
+    clearInterval(intervalId)
 }
+
