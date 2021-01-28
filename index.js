@@ -5,19 +5,19 @@ let gOver = document.querySelector('.game-over-container')
 let startBtn = document.querySelector('.start-game')
 let replayBtn = document.querySelector('#replay-button')
 let moonImg = document.createElement('img')
-moonImg.src = '/images/moon NASA1.jpg'
+moonImg.src = 'images/moon NASA1.jpg'
 
 let earth = document.createElement('img')
-earth.src = '/images/earth.png'
+earth.src = 'images/earth.png'
 
 let singleCrater = new Image()
-singleCrater.src = '/images/craterspng.png'
+singleCrater.src = 'images/craterspng.png'
 
 let singleIce = new Image()
-singleIce.src = '/images/ice.png'
+singleIce.src = 'images/ice.png'
 
 let rover = new Image()
-rover.src = '/images/rov1.png'
+rover.src = 'images/rov1.png'
 let downArrow 
 let upArrow 
 
