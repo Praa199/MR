@@ -1,3 +1,8 @@
+
+
+
+//----------- html elements
+
 let canvas = document.querySelector('canvas')
 let ctx = canvas.getContext('2d')
 let splash = document.querySelector('.splash-container')
@@ -6,6 +11,10 @@ let gOver = document.querySelector('.game-over-container')
 let startBtn = document.querySelector('.start-game')
 let replayBtn = document.querySelector('#replay-button')
 let restartBtn = document.querySelector('#restart-button')
+
+//-------------images
+
+
 let moonImg = document.createElement('img')
 moonImg.src = 'images/moon NASA1.jpg'
 
@@ -23,6 +32,8 @@ rover.src = 'images/rov1.png'
 let downArrow 
 let upArrow 
 
+//----------- game charactors
+
 let roverX = 790
 let roverY = 380
 let craters = [{x: 0, y: 300 }]
@@ -30,13 +41,19 @@ let craters = [{x: 0, y: 300 }]
 let ices = [{x: 0, y: 0 }]
 
 let board = { x: 0 , y: 150 }
+
+//----------scores
+
+
 let intervalId = 0 
 let resource = 0;
 let lives = 3
 
+//-------------draw functions
 
 
 function draw(){
+    ctx.clearRect(roverX, roverY, rover.width, rover.height)
     ctx.clearRect(0,0, canvas.width, canvas.height)
     
     drawCraters() 
@@ -57,7 +74,7 @@ function draw(){
 }
 
 function drawRover(){
-    ctx.clearRect(roverX, roverY, rover.width, rover.height)
+    
     ctx.drawImage(rover, roverX, roverY)
     document.addEventListener('keydown', (event) => {
         
@@ -96,13 +113,15 @@ function drawCraters(){
         }
         )
     }
+
+    //------------------------crater colision
     
-    if (craters[i].x + (singleCrater.width -25) >= roverX &&
+    if ((craters[i].x +30) + (singleCrater.width -30) >= roverX &&
         (roverY > craters[i].y &&  
-            (rover.y + rover.height < craters[i].y + (singleCrater.height - 10)))) {
+            (roverY + rover.height < (craters[i].y + 20) + (singleCrater.height - 15)))) {
             console.log('ouch')
             lives-= 1
-            craters[i] = craters[i].length -1
+            craters.splice(i,1)
     }
 
 }
@@ -128,12 +147,14 @@ function drawIces(){
             
         }
 
-        if (ices[j].x + (singleIce.width -10) >= roverX &&
-        (roverY > ices[j].y &&  
-            (rover.y + rover.height < ices[j].y + (singleIce.height - 5)))) {
+        //------------------------ice colision
+
+        if (ices[j].x + singleIce.width  >= roverX &&
+        (roverY >= ices[j].y &&  
+            (roverY + rover.height <= ices[j].y + singleIce.height))) {
                 console.log('yay')
                 resource+=1
-                ices[j] = ices[j].length -1 
+                ices.splice(j,1)
             }
         }
         if( resource == 3){
@@ -156,6 +177,7 @@ ctx.fillStyle = 'white'
 ctx.fillText('Lives: ' + lives, 700, 90)
 }
 
+//---------- game functions
 
 
 function startGame(){
@@ -180,37 +202,13 @@ lives = 3
     }, 100)
 }
 
-window.addEventListener('load', () => {
-    gOver.style.display = 'none'
-    canvas.style.display = 'none'
-    gWon.style.display = 'none'
-    splash.style.display = 'block'
-
-    startBtn.addEventListener('click', () => {
-    startGame()    
-})
-
-restartBtn.addEventListener('click', () => {
-    console.log('restart')
-    resource = 0;
-    lives = 3
-    startGame()    
-})
-
-replayBtn.addEventListener('click', () => {
-    console.log('replay')
-    resource = 0;
-    lives = 3
-    startGame()    
-})
-});    
 
 function gameOver() {
     canvas.style.display = 'none'
     gOver.style.display = 'block'
-
+    
     clearInterval(intervalId)
-
+    
     
 }
 
@@ -223,3 +221,27 @@ function gameWon() {
     clearInterval(intervalId)
 }
 
+    window.addEventListener('load', () => {
+        gOver.style.display = 'none'
+        canvas.style.display = 'none'
+        gWon.style.display = 'none'
+        splash.style.display = 'block'
+    
+        startBtn.addEventListener('click', () => {
+        startGame()    
+    })
+    
+    restartBtn.addEventListener('click', () => {
+        console.log('restart')
+        resource = 0;
+        lives = 3
+        startGame()    
+    })
+    
+    replayBtn.addEventListener('click', () => {
+        console.log('replay')
+        resource = 0;
+        lives = 3
+        startGame()    
+    })
+    });    

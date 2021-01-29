@@ -2,10 +2,12 @@
  */
 
 .splash-container{
-    background-image: url(/images/moonSun.png);
+    width: 100%;
+    text-align:center;
+    display: inline;
+    background-image: url(images/moonSun.png);
     background-repeat: no-repeat;
-    width: 858px; 
-    height: 557px;
+    
 }
 
 .title,
@@ -29,7 +31,7 @@
     font-size: 20px;
     font-weight: 800;
     color: cornsilk;
-    margin-left: 35%;
+    margin-left: 25%;
     height: 15%;
     width: 20%;
     background-color: rgb(6, 24, 126);
@@ -38,32 +40,48 @@
 }
 
 
+/* -----------------------------game screen */
 
 
+#canvas {
+    width: 75%;
+    text-align:center;
+}
 
-
-
-
+canvas {
+    display: inline;
+}
 
 /* ---------------------------------game over screen */
 
 .game-over-container{
-    background-image: url(/images/explosion.png);
+    width: 100%;
+    text-align:center;
+    display: inline-block;
+    background-image: url(images/explosion.png);
     background-repeat: no-repeat;
-    width: 858px; 
-    height: 557px;
+    background-size: contain;
+
 }
 
 .game-over-container> div {
-    
-    margin-left: 20%;
+    size: inherit;
+    margin-right: 30%;
+}
+
+.game-over-container> 
+div > 
+h3, 
+h1, 
+button{
+    margin-right: 35%;
 }
 
 .game-over-container> div > h3{
     color:whitesmoke;
     padding-top: 20%;
     font-size: 35px;
-    padding-left: 50px;
+    padding-left: 20%;
 }
 
 .game-over-container> div >h1{
@@ -96,16 +114,26 @@
 
 
 .game-won-container{
-    background-image: url(/images/astrCeleb.jpg);
+    width: 100%;
+    text-align:center;
+    display: inline;
+    background-image: url(images/astrCeleb.jpg);
     background-repeat: no-repeat;
     background-size: contain;
-    width: 858px; 
-    height: 557px;
+
 }
 
 .game-won-container> div {
     
-    margin-left: 20%;
+    margin-left: 10%;
+}
+
+.game-won-container> 
+div > 
+h3, 
+h1, 
+button{
+    margin-right: 40%;
 }
 
 .game-won-container> div > h3{
@@ -126,7 +154,7 @@
     font-size: 20px;
     font-weight: 800;
     color: cornsilk;
-    margin-left: 25%;
+    margin-left: 10%;
     background-color: rgb(6, 24, 126);
     cursor: pointer;
 
