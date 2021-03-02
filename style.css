@@ -1,39 +1,43 @@
+body {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    background-color: rgb(10, 10, 58);
+    margin: auto;
+}
+
 /* ----------------------------------------------splash screen
  */
 
 .splash-container{
-    width: 100%;
+    justify-content: stretch;
     text-align:center;
-    display: inline;
     background-image: url(images/moonSun.png);
     background-repeat: no-repeat;
-    
-}
-
-.title,
-.instructions,
-.start-game {
-    margin: 0 20%;
+    background-size:cover;
+    width:90%; 
+    height: 90%;
+    border-style: dotted;
 }
 
 .title >h1{
-    font-size: 100px;
-    margin-top: 0;
+    font-size: 9vw;
 }
 
-.instructions > p{
-    font-size: 40px;
-    padding-left: 50px;
-    color: rgb(255, 254, 254);
+.instructions > p,
+.start-game {
+    font-size: 2vw;
+    color: rgb(255, 255, 255);
 }
 
-.splash-container > button{
-    font-size: 20px;
+.start-game{
     font-weight: 800;
     color: cornsilk;
-    margin-left: 25%;
-    height: 15%;
-    width: 20%;
+    height: 10vh;
+    width: 15vw;
     background-color: rgb(6, 24, 126);
     cursor: pointer;
 
@@ -43,118 +47,77 @@
 /* -----------------------------game screen */
 
 
-#canvas {
-    width: 75%;
+#canvas{
+    background-image: url(/images/moon\ NASA1.jpg);
+    justify-content: stretch;
     text-align:center;
-}
-
-canvas {
-    display: inline;
+    background-repeat: no-repeat;
+    background-size:cover;
+    width:90%; 
+    height: 90%;
+    border-style: dotted;
 }
 
 /* ---------------------------------game over screen */
 
 .game-over-container{
-    width: 100%;
+    justify-content: stretch;
     text-align:center;
-    display: inline-block;
     background-image: url(images/explosion.png);
     background-repeat: no-repeat;
-    background-size: contain;
-
+    background-size:cover;
+    width:90%; 
+    height: 90%;
+    border-style: dotted;
 }
 
-.game-over-container> div {
-    size: inherit;
-    margin-right: 30%;
+#trashed{
+    font-size: 4vw;
+    color: rgb(106, 42, 42);
 }
 
-.game-over-container> 
-div > 
-h3, 
-h1, 
-button{
-    margin-right: 35%;
+#game-over{
+    font-size: 9vw;
 }
 
-.game-over-container> div > h3{
-    color:whitesmoke;
-    padding-top: 20%;
-    font-size: 35px;
-    padding-left: 20%;
-}
-
-.game-over-container> div >h1{
-    color:whitesmoke;
-    font-size: 80px;
-    margin-top: 10%;
-}
-
-.game-over-container> div > button{
-    font-size: 20px;
+#replay-button{
+    font-size: 2vw;
     font-weight: 800;
     color: cornsilk;
-    margin-left: 25%;
+    height: 10vh;
+    width: 15vw;
     background-color: rgb(6, 24, 126);
     cursor: pointer;
-
 }
-
-
-
-
-
-
-
-
-
 
 /* ---------------------------------------GAME WON SCREEN */
 
-
-
 .game-won-container{
-    width: 100%;
+    justify-content: stretch;
     text-align:center;
-    display: inline;
     background-image: url(images/astrCeleb.jpg);
     background-repeat: no-repeat;
-    background-size: contain;
-
+    background-size:cover;
+    width:90%; 
+    height: 90%;
+    border-style: dotted;
 }
 
-.game-won-container> div {
-    
-    margin-left: 10%;
+#you-win{
+    font-size: 9vw;
 }
 
-.game-won-container> 
-div > 
-h3, 
-h1, 
-button{
-    margin-right: 40%;
+#congrats{
+    font-size: 3vw;
+    color: rgb(255, 255, 255);
 }
 
-.game-won-container> div > h3{
-    color:rgb(167, 121, 121);
-    padding-top: 20%;
-    font-size: 35px;
-    padding-left: 50px;
-}
-
-.game-won-container> div >h1{
-    color:whitesmoke;
-    font-size: 80px;
-    margin-top: 10%;
-    padding-left: 10%;
-}
-
-.game-won-container> div > button{
-    font-size: 20px;
+#restart-button{
+    font-size: 2vw;
     font-weight: 800;
     color: cornsilk;
-    margin-left: 10%;
+    height: 10vh;
+    width: 15vw;
     background-color: rgb(6, 24, 126);
     cursor: pointer;
 

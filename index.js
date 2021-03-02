@@ -1,22 +1,22 @@
 
 
 
-//----------- html elements
+// //----------- html elements
 
 let canvas = document.querySelector('canvas')
 let ctx = canvas.getContext('2d')
 let splash = document.querySelector('.splash-container')
-let gWon = document.querySelector('.game-won-container')
-let gOver = document.querySelector('.game-over-container')
 let startBtn = document.querySelector('.start-game')
+let gWon = document.querySelector('.game-won-container')
 let replayBtn = document.querySelector('#replay-button')
+let gOver = document.querySelector('.game-over-container')
 let restartBtn = document.querySelector('#restart-button')
 
-//-------------images
+// //-------------images
 
 
-let moonImg = document.createElement('img')
-moonImg.src = 'images/moon NASA1.jpg'
+// // let moonImg = document.createElement('img')
+// // moonImg.src = 'images/moon NASA1.jpg'
 
 let earth = document.createElement('img')
 earth.src = 'images/earth.png'
@@ -32,7 +32,7 @@ rover.src = 'images/rov1.png'
 let downArrow 
 let upArrow 
 
-//----------- game charactors
+// //----------- game charactors
 
 let roverX = 790
 let roverY = 380
@@ -42,14 +42,14 @@ let ices = [{x: 0, y: 0 }]
 
 let board = { x: 0 , y: 150 }
 
-//----------scores
+// //----------scores
 
 
 let intervalId = 0 
 let resource = 0;
 let lives = 3
 
-//-------------draw functions
+// //-------------draw functions
 
 
 function draw(){
@@ -93,12 +93,11 @@ function drawRover(){
         downArrow = false;
     })
     
-    ctx.drawImage(earth, 0, 5)
+    //ctx.drawImage(earth, 0, 5)
 }
 
 
 function drawCraters(){
-    ctx.drawImage(moonImg, 0, 0)
     
     for (let i = 0; i < craters.length; i++) {
     ctx.drawImage(singleCrater, craters[i].x, craters[i].y )
@@ -206,10 +205,9 @@ lives = 3
 function gameOver() {
     canvas.style.display = 'none'
     gOver.style.display = 'block'
-    
+    splash.style.display = 'none'
+
     clearInterval(intervalId)
-    
-    
 }
 
 
@@ -245,3 +243,10 @@ function gameWon() {
         startGame()    
     })
     });    
+
+
+
+
+
+//--------------------------------------------------------------------
+

@@ -16,25 +16,28 @@
     <div class="instructions">
       <p>Use the Up and Down <br>arrow keys to avoid <br>the craters and reach <br> the resources needed.</p>
     </div>
+    <div>
     <button class="start-game">START GAME</button>
+  </div>
   </div>
 
     <!-------------------canvas screen -->
 
 
-  <canvas id="canvas" width="858px" height="557px"></canvas>
+  <canvas id="canvas"></canvas>
 
 
-  <!-------------------game over screen -->
+  <!-- -----------------game over screen -->
 
   <div class="game-over-container">
     <div>
-      <h3>You have trashed the vehicle.</h3>
-      <h1>GAME OVER</h1>
+      <h3 id='trashed'>You have trashed the vehicle.</h3>
+    </div>
+    <div>
+      <h1 id='game-over'>GAME OVER</h1>
     </div>
     <div>
         <button type="reset" id="replay-button"> RESTART</button>
-      
     </div>
   </div>
 
@@ -44,15 +47,17 @@
 
   <div class="game-won-container">
   <div>
-    <h3>Congratulations space explorer!</h3>
-    <h1>YOU WIN!!</h1>
+    <h3 id="congrats">Congratulations space explorer!</h3>
+  </div>
+  <div>
+    <h1 id="you-win">YOU WIN!!</h1>
   </div>
   <div>
       <button type="reset" id="restart-button"> RESTART <br> GAME</button>
-    
   </div>
 </div>
 
   <script src="index.js"></script>
+  <script src="game.js"></script>
 </body>
 </html>
