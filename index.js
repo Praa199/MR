@@ -1,192 +1,62 @@
-
-
-
-// //----------- html elements
-
-let canvas = document.querySelector('canvas')
-let ctx = canvas.getContext('2d')
+const canvas = document.querySelector('canvas')
+const ctx = canvas.getContext('2d')
 let splash = document.querySelector('.splash-container')
-let startBtn = document.querySelector('.start-game')
 let gWon = document.querySelector('.game-won-container')
-let replayBtn = document.querySelector('#replay-button')
 let gOver = document.querySelector('.game-over-container')
+let startBtn = document.querySelector('.start-game')
 let restartBtn = document.querySelector('#restart-button')
-
-// //-------------images
-
-
-// // let moonImg = document.createElement('img')
-// // moonImg.src = 'images/moon NASA1.jpg'
-
-let earth = document.createElement('img')
-earth.src = 'images/earth.png'
-
-let singleCrater = new Image()
-singleCrater.src = 'images/craterspng.png'
-
-let singleIce = new Image()
-singleIce.src = 'images/ice.png'
-
-let rover = new Image()
-rover.src = 'images/rov1.png'
-let downArrow 
-let upArrow 
-
-// //----------- game charactors
-
-let roverX = 790
-let roverY = 380
-let craters = [{x: 0, y: 300 }]
-
-let ices = [{x: 0, y: 0 }]
-
-let board = { x: 0 , y: 150 }
-
-// //----------scores
-
-
-let intervalId = 0 
+let replayBtn = document.querySelector('#replay-button')
+let downArrow = false;
+let upArrow = false;
+let leftArrow = false;
+let rightArrow = false; 
 let resource = 0;
 let lives = 3
+let intervalId = 0 
 
-// //-------------draw functions
-
-
-function draw(){
-    ctx.clearRect(roverX, roverY, rover.width, rover.height)
-    ctx.clearRect(0,0, canvas.width, canvas.height)
-    
-    drawCraters() 
-    drawIces() 
-    drawRover()
-    drawLives()
-    drawScore()
-    
-    
-    if(upArrow && roverY>130){
-        roverY-=10
-    } 
-
-    if(downArrow && roverY<500){
-        roverY+=10
-    } 
-
-}
-
-function drawRover(){
-    
-    ctx.drawImage(rover, roverX, roverY)
-    document.addEventListener('keydown', (event) => {
-        
-            if (event.keyCode == 38 || event.key == "ArrowUp") {
-                upArrow = true;
-                downArrow = false;
-        }
-        else if (event.keyCode == 40 || event.key == "ArrowDown") {
-                upArrow = false;
-                downArrow = true;
-            } 
-    })
-    
-    document.addEventListener('keyup', (event) => {
-        upArrow = false;
-        downArrow = false;
-    })
-    
-    //ctx.drawImage(earth, 0, 5)
-}
-
-
-function drawCraters(){
-    
-    for (let i = 0; i < craters.length; i++) {
-    ctx.drawImage(singleCrater, craters[i].x, craters[i].y )
-    craters[i].x+=5
-    craters[i].y+=1
-    
-    if (craters[i].x == 300 ) {
-        craters.push( {
-
-            x: -50, 
-            y: Math.floor(Math.random() * canvas.height -135)
-        }
-        )
+let rover = {
+    x:275,
+    y: 130,
+    width:10,
+    height: 5
+};
+let iceArray = [
+    {
+        x: -70,
+        y: 75,
+        width: 8,
+        height: 8
     }
-
-    //------------------------crater colision
-    
-    if ((craters[i].x +30) + (singleCrater.width -30) >= roverX &&
-        (roverY > craters[i].y &&  
-            (roverY + rover.height < (craters[i].y + 20) + (singleCrater.height - 15)))) {
-            console.log('ouch')
-            lives-= 1
-            craters.splice(i,1)
-    }
-
-}
-if(lives == 0){
-    gameOver()
-}
-}
-
-
-function drawIces(){
-    for (let j = 0; j < ices.length; j++) {
-        ctx.drawImage(singleIce, ices[j].x, ices[j].y )
-    ices[j].x+=5
-    ices[j].y+=1
-    
-    if (ices[j].x == 400) {
-        ices.push(
-            {
-                x: 0, 
-                y: Math.floor(Math.random() * canvas.height - 50) 
-            }
-            )
-            
-        }
-
-        //------------------------ice colision
-
-        if (ices[j].x + singleIce.width  >= roverX &&
-        (roverY >= ices[j].y &&  
-            (roverY + rover.height <= ices[j].y + singleIce.height))) {
-                console.log('yay')
-                resource+=1
-                ices.splice(j,1)
-            }
-        }
-        if( resource == 3){
-            gameWon()
-        }
-    }
-
-    
-    function drawScore() {
-ctx.drawImage(singleIce, 585, 10 )
-ctx.font = '30px Verdana '
-ctx.fillStyle = 'white'
-ctx.fillText('Resource:  ' + resource, 650, 50)
-}    
-
-
-function drawLives(){
-ctx.font = '30px Verdana '
-ctx.fillStyle = 'white'
-ctx.fillText('Lives: ' + lives, 700, 90)
-}
-
-//---------- game functions
-
+]
+let craterArray = [{
+    x: -20,
+    y: 100,
+    width: 15,
+    height: 10
+}]
 
 function startGame(){
-roverX = 790
-roverY = 380
-craters = [{x: 0, y: 300 }]
-
-ices = [{x: 0, y: 0 }]
-
-board = { x: 0 , y: 150 }
+    rover = {
+        x:275,
+        y: 130,
+        width:10,
+        height: 5
+    };
+    iceArray = [
+        {
+            x: -70,
+            y: 75,
+            width: 8,
+            height: 8
+        }
+    ]
+    craterArray = [{
+        x: -20,
+        y: 100,
+        width: 15,
+        height: 10
+    }]
+    
 intervalId = 0 
 resource = 0;
 lives = 3
@@ -197,35 +67,207 @@ lives = 3
     splash.style.display = 'none'
     
     intervalId = setInterval(() => {
-        requestAnimationFrame(draw)
+        requestAnimationFrame(drawGame)
     }, 100)
 }
 
-
-function gameOver() {
-    canvas.style.display = 'none'
-    gOver.style.display = 'block'
-    splash.style.display = 'none'
-
-    clearInterval(intervalId)
-}
-
-
-
 function gameWon() {
+    clearInterval(intervalId)
     canvas.style.display = 'none'
     gWon.style.display = 'block'
-
-    clearInterval(intervalId)
 }
 
-    window.addEventListener('load', () => {
+function gameOver() {
+    clearInterval(intervalId)   
+    canvas.style.display = 'none'
+    gOver.style.display = 'block'
+}
+
+function drawScore() {
+    ctx.font = '50% Verdana '
+    ctx.fillStyle = 'white'
+    ctx.fillText('Score:  ' + resource, 240, 10)
+}    
+
+
+function drawLives(){
+ctx.font = '50% Verdana '
+ctx.fillStyle = 'white'
+ctx.fillText('Lives: ' + lives, 240, 25)
+}
+
+function drawRover() {
+ctx.beginPath();
+ctx.fillStyle = "#9d9d9e";
+ctx.fillRect(rover.x, rover.y, rover.width, rover.height);
+ctx.closePath();
+
+document.addEventListener('keydown', (event) => {
+    
+    if (event.keyCode == 38 || event.key == "ArrowUp") {
+        upArrow = true;
+        downArrow = false;
+        leftArrow = false;
+        rightArrow = false;
+        }
+
+    if (event.keyCode == 40 || event.key == "ArrowDown") {
+        upArrow = false;
+        downArrow = true;
+        leftArrow = false;
+        rightArrow = false;
+        } 
+
+    if (event.keyCode == 37 || event.key == "ArrowLeft") {
+        leftArrow = true;
+        rightArrow = false;
+        upArrow = false;
+        downArrow = false;
+        }
+
+    if (event.keyCode == 39 || event.key == "ArrowRight") {
+        rightArrow = true;
+        leftArrow = false;
+        upArrow = false;
+        downArrow = false;
+        } 
+})
+
+    if(upArrow && rover.y>0){
+    rover.y-=5
+    } 
+
+    if(downArrow && rover.y<140){
+        rover.y+=5
+    } 
+
+    if(rightArrow && rover.x<285){
+        rover.x+=5
+    } 
+
+    if(leftArrow && rover.x>0){
+        rover.x-=5
+    } 
+
+document.addEventListener('keyup', (event) => {
+    upArrow = false;
+    downArrow = false;
+    rightArrow = false;
+    leftArrow = false;
+})
+}
+
+function craterCollision(i) {
+    lives-=1
+    craterArray.splice(i,1)
+    if( resource == 3){
+        console.log(lives)
+    }
+    
+    if (lives == 0) {
+            gameOver()
+        }
+}
+
+function addMoreCraters() {
+    craterArray.push( {
+        x: -70, 
+        y: Math.floor(Math.random()* 130),
+        width: 15,
+        height: 10
+    }
+    )
+}
+
+function drawCraters(){
+    
+    for (let i = 0; i < craterArray.length; i++) {
+        ctx.beginPath();
+        ctx.fillStyle = "black";
+        ctx.fillRect(craterArray[i].x, craterArray[i].y, craterArray[i].width, craterArray[i].height);
+        ctx.closePath();
+        craterArray[i].x +=1    
+
+        if (craterArray[i].x == 0 ) {
+            addMoreCraters()
+        }
+
+        if (craterArray[i].x < rover.x + rover.width &&
+            craterArray[i].x + craterArray[i].width > rover.x &&
+            craterArray[i].y < rover.y + rover.height &&
+            craterArray[i].y + craterArray[i].height > rover.y) {
+                craterCollision(i)
+        }
+    }
+}
+
+function iceCollision(i) {
+    resource+=1
+    console.log(resource)
+    iceArray.splice(i,1)
+
+    if (resource >= 2) {
+        addMoreCraters()
+    }
+
+    if (resource >= 3) {
+        addMoreCraters()
+    }
+
+    if (resource == 9) {
+        gameWon()
+    }
+}
+
+function addMoreIce() {
+    iceArray.push( {
+        x: -70, 
+        y: Math.floor(Math.random()* 130),
+        width: 8,
+        height: 8
+    }
+    )
+}
+
+function drawIces(){
+
+    for (let i = 0; i < iceArray.length; i++) {
+        ctx.beginPath();
+        ctx.fillStyle = "#47a3ff";
+        ctx.fillRect(iceArray[i].x, iceArray[i].y, iceArray[i].width, iceArray[i].height);
+        ctx.closePath();
+        iceArray[i].x +=1    
+
+        if (iceArray[i].x == 0 ) {
+            addMoreIce()
+        }
+
+        if (iceArray[i].x < rover.x + rover.width &&
+            iceArray[i].x + iceArray[i].width > rover.x &&
+            iceArray[i].y < rover.y + rover.height &&
+            iceArray[i].y + iceArray[i].height > rover.y) {
+                iceCollision(i)
+        }
+    }
+}
+
+function drawGame(){
+    ctx.clearRect(0,0, canvas.width, canvas.height)
+    
+    drawRover()
+    drawCraters()
+    drawIces()
+    drawScore()
+    drawLives()
+}
+
+window.addEventListener('load', () =>{
         gOver.style.display = 'none'
         canvas.style.display = 'none'
         gWon.style.display = 'none'
         splash.style.display = 'block'
-    
-        startBtn.addEventListener('click', () => {
+
+    startBtn.addEventListener('click', () => {
         startGame()    
     })
     
@@ -242,11 +284,4 @@ function gameWon() {
         lives = 3
         startGame()    
     })
-    });    
-
-
-
-
-
-//--------------------------------------------------------------------
-
+})
