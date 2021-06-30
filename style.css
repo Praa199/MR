@@ -50,7 +50,7 @@ body {
 #canvas{
     justify-content: stretch;
     text-align:center;
-    background-image: url(/images/moon\ NASA1.jpg);
+    background-image: url(/images/moonNASA1.jpg);
     background-repeat: no-repeat;
     background-size:cover;
     width:90%; 

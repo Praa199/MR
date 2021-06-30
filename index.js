@@ -13,6 +13,8 @@ let rightArrow = false;
 let resource = 0;
 let lives = 3
 let intervalId = 0 
+const radius = 0
+
 
 let rover = {
     x:275,
@@ -31,6 +33,7 @@ let iceArray = [
 let craterArray = [{
     x: -20,
     y: 100,
+    radius: radius,
     width: 15,
     height: 10
 }]
@@ -86,14 +89,14 @@ function gameOver() {
 function drawScore() {
     ctx.font = '50% Verdana '
     ctx.fillStyle = 'white'
-    ctx.fillText('Score:  ' + resource, 240, 10)
+    ctx.fillText('Score:  ' + resource + "/10", 240, 10)
 }    
 
 
 function drawLives(){
 ctx.font = '50% Verdana '
 ctx.fillStyle = 'white'
-ctx.fillText('Lives: ' + lives, 240, 25)
+ctx.fillText('Lives: ' + lives + "/3", 240, 25)
 }
 
 function drawRover() {
@@ -161,7 +164,6 @@ function craterCollision(i) {
     lives-=1
     craterArray.splice(i,1)
     if( resource == 3){
-        console.log(lives)
     }
     
     if (lives == 0) {
@@ -173,6 +175,8 @@ function addMoreCraters() {
     craterArray.push( {
         x: -70, 
         y: Math.floor(Math.random()* 130),
+        radius: Math.floor(Math.random() * (16 - 7) + 7)
+,
         width: 15,
         height: 10
     }
@@ -180,13 +184,22 @@ function addMoreCraters() {
 }
 
 function drawCraters(){
+
     
     for (let i = 0; i < craterArray.length; i++) {
-        ctx.beginPath();
-        ctx.fillStyle = "black";
-        ctx.fillRect(craterArray[i].x, craterArray[i].y, craterArray[i].width, craterArray[i].height);
-        ctx.closePath();
-        craterArray[i].x +=1    
+        // ctx.beginPath();
+        // ctx.fillStyle = "black";
+        // ctx.fillRect(craterArray[i].x, craterArray[i].y, craterArray[i].width, craterArray[i].height);
+        // ctx.closePath();
+        // craterArray[i].x +=1    
+ctx.beginPath();
+ctx.arc(craterArray[i].x, craterArray[i].y, craterArray[i].radius, 0, 2 * Math.PI, false);
+ctx.fillStyle = 'black';
+ctx.fill();
+ctx.lineWidth = 5;
+ctx.strokeStyle = '#003300';
+craterArray[i].x +=1  
+// ctx.stroke();
 
         if (craterArray[i].x == 0 ) {
             addMoreCraters()
@@ -203,7 +216,6 @@ function drawCraters(){
 
 function iceCollision(i) {
     resource+=1
-    console.log(resource)
     iceArray.splice(i,1)
 
     if (resource >= 2) {
@@ -272,14 +284,12 @@ window.addEventListener('load', () =>{
     })
     
     restartBtn.addEventListener('click', () => {
-        console.log('restart')
         resource = 0;
         lives = 3
         startGame()    
     })
     
     replayBtn.addEventListener('click', () => {
-        console.log('replay')
         resource = 0;
         lives = 3
         startGame()    
