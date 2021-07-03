@@ -6,6 +6,8 @@ body {
   align-items: center;
   justify-content: space-around;
   background-image: url("./images/moonSun.png");
+  background-repeat: no-repeat;
+  background-size: cover;
   margin: auto;
 }
 
