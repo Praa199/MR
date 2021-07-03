@@ -1,11 +1,14 @@
 body {
-    width: 100vw;
-    height: 100vh;
+    width: 98vw;
+    height: 95vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    background-color: rgb(10, 10, 58);
+    background-image: url("./images/moonSun.png") ;
+    background-repeat: no-repeat;
+
+    background-size: cover;
     margin: auto;
 }
 
@@ -47,17 +50,16 @@ body {
 /* -----------------------------game screen */
 
 
-#canvas{
+/* #canvas{
     justify-content: stretch;
     text-align:center;
-    background-image: url(/images/moonNASA1.jpg);
+    background-image: url("./images/moonNASA1.jpg");
     background-repeat: no-repeat;
     background-size:cover;
-    width:90%; 
-    height: 90%;
-    border-style: dotted;
+    width:85%; 
+    height: 85%;
 
-}
+} */
 
 /* #rover{
     background-color: lawngreen;
@@ -78,7 +80,32 @@ body {
     position: absolute;
     width: 60px;
     height: 45px;
+    
 } */
+
+
+
+
+
+
+/* ---------------------------------game paused screen */
+
+.game-paused-container{
+    justify-content: stretch;
+    text-align:center;
+    background-color: aliceblue;
+    width:90%; 
+    height: 90%;
+}
+#resume-button{
+    font-size: 1.5vw;
+    font-weight: 600;
+    color: cornsilk;
+    height: 10vh;
+    width: 10vw;
+    background-color: rgb(6, 24, 126);
+        cursor: pointer;
+}
 
 /* ---------------------------------game over screen */
 

@@ -1,3 +1,106 @@
+// let bg;
+// let x, y;
+
+
+let rad = 30; // Width of the shape
+let xpos, ypos; // Starting position of shape
+
+let xspeed = 2.8; // Speed of the shape
+let yspeed = 2.2; // Speed of the shape
+
+let xdirection = 1; // Left or Right
+let ydirection = 1; // Top to Bottom
+
+
+function setup() {
+    // console.log("setup"); //once
+    createCanvas(861, 552);
+    bg = loadImage("images/moonNASA1.jpg");
+    // noStroke();
+    // frameRate(30);
+    // ellipseMode(RADIUS);
+    // Set the starting position of the shape
+    xpos = width - 30;
+    ypos = height / 2;
+    // x = width / 2;
+    // y = height;
+  }
+  
+  function draw() {
+    background(bg);
+    // console.log("draw"); //infinite
+
+    // Update the position of the shape
+    // xpos = xpos + xspeed * xdirection;
+    // ypos = ypos + yspeed * ydirection;
+  
+    // Test to see if the shape exceeds the boundaries of the screen
+    // If it does, reverse its direction by multiplying by -1
+    if (xpos > width - rad || xpos < rad) {
+      xdirection *= -1;
+    }
+    if (ypos > height - rad || ypos < rad) {
+      ydirection *= -1;
+    }
+  
+    // Draw the shape
+    ellipse(xpos, ypos, rad, rad);
+
+//     if (mouseIsPressed) {
+//       fill(0);
+//     } else {
+//       fill(255);
+//     }
+//     ellipse(mouseX, mouseY, 80, 80);
+
+//       // Draw a circle
+//   stroke(50);
+//   fill(100);
+//   ellipse(x, y, 24, 24);
+  
+//   // Jiggling randomly on the horizontal axis
+//   x = x + random(-1, 1);
+//   // Moving up at a constant speed
+//   y = y - 1;
+  
+//   // Reset to the bottom
+//   if (y < 0) {
+//     y = height;
+//   }
+
+  }
+
+  setInterval(() => {
+        xpos = xpos + xspeed * xdirection;
+    ypos = ypos + yspeed * ydirection;
+  }, 500);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // class game {
 //     constructor(){
 //     this.intervalId = 0 
