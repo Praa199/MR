@@ -5,9 +5,9 @@
 MoonRover is a fun, single player, browser game. As you rove around the moon in search of resources, the goal is to collect as many as possible using the Up, Down, Left and Right arrow keys from your keyboard. Resources are represented with ice cubes. Craters are represented with black circles and must be avoided at all times, else the MoonRover will be trashed. However if the MoonRover does drive over 5 craters the the game is over.
 As the player collects resources, the ammount of crater increases. The scores are kept on the top right corner of the screen.
 
-![screenshot]("/images/asdfghjklöl.jpg")
+![screenshot](/images/asdfghjklöl.jpg)
 
-![screenshot]("/images/Screenshot_2021-07-03_15-10-07.png")
+![screenshot](/images/Screenshot_2021-07-03_15-10-07.png)
 
 #MVP (DOM - CANVAS)
 
