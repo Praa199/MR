@@ -1,391 +1,303 @@
-// const canvas = document.querySelector('canvas')
-// const ctx = canvas.getContext('2d')
-// let splash = document.querySelector('.splash-container')
-// let gWon = document.querySelector('.game-won-container')
-// let gPaused = document.querySelector('.game-paused-container')
-// let gOver = document.querySelector('.game-over-container')
-// let startBtn = document.querySelector('.start-game')
-// let restartBtn = document.querySelector('#restart-button')
-// let replayBtn = document.querySelector('#replay-button')
-// let downArrow = false;
-// let upArrow = false;
-// let leftArrow = false;
-// let rightArrow = false;
-// let spaceBar= false
-// let paused = false
-// let resource = 0;
-// let lives = 3
-// let intervalId = 0 
-// const radius = 0
-// let pause = 100
-// let intervalId = setInterval(() => {
-//     requestAnimationFrame(drawGame)
-// }, pause)
+const canvas = document.querySelector("canvas");
+const ctx = canvas.getContext("2d");
+let splash = document.querySelector(".splash-container");
+let gWon = document.querySelector(".game-won-container");
+let gOver = document.querySelector(".game-over-container");
+let startBtn = document.querySelector(".start-game");
+let restartBtn = document.querySelector("#restart-button");
+let replayBtn = document.querySelector("#replay-button");
+let downArrow = false;
+let upArrow = false;
+let leftArrow = false;
+let rightArrow = false;
+let resource = 0;
+let lives = 3;
+let intervalId = 0;
+const radius = 0;
 
+let singleIce = new Image();
+singleIce.src = "images/ice.png";
 
-// let rover = {
-//     x:275,
-//     y: 130,
-//     width:10,
-//     height: 5
-// };
-// let iceArray = [
-//     {
-//         x: -70,
-//         y: 75,
-//         width: 8,
-//         height: 8
-//     }
-// ]
-// let craterArray = [{
-//     x: -20,
-//     y: 100,
-//     radius: radius,
-//     width: 15,
-//     height: 10
-// }]
+let roverImage = new Image();
+roverImage.src = "images/rov1.png";
 
-// function startGame(){
-//     rover = {
-//         x:275,
-//         y: 130,
-//         width:10,
-//         height: 5
-//     };
-//     iceArray = [
-//         {
-//             x: -70,
-//             y: 75,
-//             width: 8,
-//             height: 8
-//         }
-//     ]
-//     craterArray = [{
-//         x: -20,
-//         y: 100,
-//     radius: radius,
+let roverArray = {
+  x: 275,
+  y: 130,
+  width: 20,
+  height: 15,
+};
+let iceArray = [
+  {
+    x: -70,
+    y: 75,
+    width: 12,
+    height: 12,
+  },
+];
+let craterArray = [
+  {
+    x: -20,
+    y: 100,
+    radius: radius,
+  },
+];
 
-//         width: 15,
-//         height: 10
-//     }]
-    
-// intervalId = 0 
-// resource = 0;
-// lives = 3
+function startGame() {
+  roverArray = {
+    x: 275,
+    y: 130,
+    width: 20,
+    height: 15,
+  };
+  iceArray = [
+    {
+      x: -70,
+      y: 75,
+      width: 12,
+      height: 12,
+    },
+  ];
+  craterArray = [
+    {
+      x: -20,
+      y: 100,
+      radius: radius,
+    },
+  ];
 
-//     gOver.style.display = 'none'
-//     gWon.style.display = 'none'
-//     canvas.style.display = 'block'
-//     splash.style.display = 'none'
-//     gPaused.style.display = 'none'
+  intervalId = 0;
+  resource = 0;
+  lives = 3;
 
-    
-//     intervalId
-// }
+  gOver.style.display = "none";
+  gWon.style.display = "none";
+  canvas.style.display = "block";
+  splash.style.display = "none";
 
-// // function gamePaused() {
-// //     // !paused ? requestAnimationFrame(drawGame) && (paused = true):(clearInterval(intervalId)) && (canvas.style.display = 'none') && (gPaused.style.display = 'block') && (paused = false)
-// //         // clearInterval(intervalId)
-// //         // console.log(paused);
-// //         // return paused = true
-// //         clearInterval(intervalId);
-        
-// //         canvas.style.display = 'none'
-// //         gPaused.style.display = 'block'
-// //         console.log(paused);
-// //      paused = true
-// // }
+  intervalId = setInterval(() => {
+    requestAnimationFrame(drawGame);
+  }, 100);
+}
 
-// // function gameResumed(){
-// //             intervalId = setInterval (function (){
-// //             requestAnimationFrame (drawGame)
-// //         }, 10000000000000000000000000000000000000000000000000000)
-        
-// //         console.log(paused);
-    
-// //      paused = false;
-// // }
+function gameWon() {
+  clearInterval(intervalId);
+  canvas.style.display = "none";
+  gWon.style.display = "block";
+}
 
+function gameOver() {
+  clearInterval(intervalId);
+  canvas.style.display = "none";
+  gOver.style.display = "block";
+}
 
-// function gameWon() {
-//     clearInterval(intervalId)
-//     canvas.style.display = 'none'
-//     gWon.style.display = 'block'
-// }
+function drawScore() {
+  ctx.font = "50% Verdana ";
+  ctx.fillStyle = "white";
+  ctx.fillText("Score:  " + resource + "/5", 240, 10);
+}
 
-// function gameOver() {
-//     clearInterval(intervalId)   
-//     canvas.style.display = 'none'
-//     gOver.style.display = 'block'
-// }
+function drawLives() {
+  ctx.font = "50% Verdana ";
+  ctx.fillStyle = "white";
+  ctx.fillText("Lives: " + lives + "/3", 240, 25);
+}
 
-// function drawScore() {
-//     ctx.font = '50% Verdana '
-//     ctx.fillStyle = 'white'
-//     ctx.fillText('Score:  ' + resource + "/10", 240, 10)
-// }    
+function drawRover() {
+  ctx.drawImage(
+    roverImage,
+    roverArray.x,
+    roverArray.y,
+    roverArray.width,
+    roverArray.height
+  );
 
+  document.addEventListener("keydown", (event) => {
+    if (event.keyCode == 38 || event.key == "ArrowUp") {
+      upArrow = true;
+      downArrow = false;
+      leftArrow = false;
+      rightArrow = false;
+    }
 
-// function drawLives(){
-// ctx.font = '50% Verdana '
-// ctx.fillStyle = 'white'
-// ctx.fillText('Lives: ' + lives + "/3", 240, 25)
-// }
+    if (event.keyCode == 40 || event.key == "ArrowDown") {
+      upArrow = false;
+      leftArrow = false;
+      rightArrow = false;
+      downArrow = true;
+    }
 
-// function drawRover() {
-// ctx.beginPath();
-// ctx.fillStyle = "#9d9d9e";
-// ctx.fillRect(rover.x, rover.y, rover.width, rover.height);
-// ctx.closePath();
+    if (event.keyCode == 37 || event.key == "ArrowLeft") {
+      leftArrow = true;
+      rightArrow = false;
+      upArrow = false;
+      downArrow = false;
+    }
 
-// document.addEventListener('keydown', (event) => {
-    
-//     if (event.keyCode == 38 || event.key == "ArrowUp") {
-//         upArrow = true;
-//         downArrow = false;
-//         leftArrow = false;
-//         rightArrow = false;
-//         spaceBar = false;
+    if (event.keyCode == 39 || event.key == "ArrowRight") {
+      rightArrow = true;
+      leftArrow = false;
+      upArrow = false;
+      downArrow = false;
+    }
+  });
 
-//         }
+  if (upArrow && roverArray.y > 0) {
+    roverArray.y -= 5;
+  }
 
-//     if (event.keyCode == 40 || event.key == "ArrowDown") {
-//         upArrow = false;
-//         downArrow = true;
-//         leftArrow = false;
-//         rightArrow = false;
-//         spaceBar = false;
+  if (downArrow && roverArray.y < 140) {
+    roverArray.y += 5;
+  }
 
-//         } 
+  if (rightArrow && roverArray.x < 285) {
+    roverArray.x += 5;
+  }
 
-//     if (event.keyCode == 37 || event.key == "ArrowLeft") {
-//         leftArrow = true;
-//         rightArrow = false;
-//         upArrow = false;
-//         downArrow = false;
-//         spaceBar = false;
+  if (leftArrow && roverArray.x > 0) {
+    roverArray.x -= 5;
+  }
 
-//         }
+  document.addEventListener("keyup", (event) => {
+    upArrow = false;
+    downArrow = false;
+    rightArrow = false;
+    leftArrow = false;
+  });
+}
 
-//     if (event.keyCode == 39 || event.key == "ArrowRight") {
-//         rightArrow = true;
-//         leftArrow = false;
-//         upArrow = false;
-//         downArrow = false;
-//         spaceBar = false;
+function craterCollision(i) {
+  lives -= 1;
+  craterArray.splice(i, 1);
 
-//         }
-//         if (event.keyCode == 32 || event.key == "Spacebar") {
-//             rightArrow = false;
-//             leftArrow = false;
-//             upArrow = false;
-//             downArrow = false;
-//             spaceBar = true;
+  if (lives == 0) {
+    gameOver();
+  }
+}
 
-                
-            
-//         }
-// })
+function addMoreCraters() {
+  craterArray.push({
+    x: -70,
+    y: Math.floor(Math.random() * 130),
+    radius: Math.floor(Math.random() * (16 - 7) + 7),
+  });
+}
 
-//     if(upArrow && rover.y>0){
-//     rover.y-=5
-//     } 
+function drawCraters() {
+  for (let i = 0; i < craterArray.length; i++) {
+    ctx.beginPath();
+    ctx.arc(
+      craterArray[i].x,
+      craterArray[i].y,
+      craterArray[i].radius,
+      0,
+      2 * Math.PI,
+      false
+    );
+    ctx.fillStyle = "black";
+    ctx.fill();
+    ctx.lineWidth = 5;
+    ctx.strokeStyle = "#003300";
+    craterArray[i].x += 1;
 
-//     if(downArrow && rover.y<140){
-//         rover.y+=5
-//     } 
+    if (craterArray[i].x == 0) {
+      addMoreCraters();
+    }
 
-//     if(rightArrow && rover.x<285){
-//         rover.x+=5
-//     } 
+    if (
+      craterArray[i].x - craterArray[i].radius < roverArray.x + 14 &&
+      craterArray[i].x + craterArray[i].radius > roverArray.x &&
+      craterArray[i].y - craterArray[i].radius < roverArray.y + 7 &&
+      craterArray[i].y + craterArray[i].radius > roverArray.y
+    ) {
+      craterCollision(i);
+    }
+  }
+}
 
-//     if(leftArrow && rover.x>0){
-//         rover.x-=5
-//     } 
-//     if (spaceBar) {
-//             // if (!paused) {
-//             //     pause = 100000
-//             //     paused = true
-//             //     // gamePaused()
-//             // }else if (paused) {
-//             //     pause = 100
-//             //     paused = false
-//             //     // gameResumed()
-//             // }
-//             togglePause()
+function iceCollision(i) {
+  resource += 1;
+  iceArray.splice(i, 1);
 
-//     }
+  if (resource >= 2) {
+    addMoreCraters();
+  }
 
-// document.addEventListener('keyup', (event) => {
-//     upArrow = false;
-//     downArrow = false;
-//     rightArrow = false;
-//     leftArrow = false;
-//     spaceBar = false
-// })
-// }
+  if (resource >= 3) {
+    addMoreCraters();
+  }
 
-// function craterCollision(i) {
-//     lives-=1
-//     craterArray.splice(i,1)
-//     if( resource == 3){
-//     }
-    
-//     if (lives == 0) {
-//             gameOver()
-//         }
-// }
+  if (resource == 5) {
+    gameWon();
+  }
+}
 
-// function addMoreCraters() {
-//     craterArray.push( {
-//         x: -70, 
-//         y: Math.floor(Math.random()* 130),
-//         radius: Math.floor(Math.random() * (16 - 7) + 7)
-// ,
-//         width: 15,
-//         height: 10
-//     }
-//     )
-// }
+function addMoreIce() {
+  iceArray.push({
+    x: -70,
+    y: Math.floor(Math.random() * 130),
+    width: 12,
+    height: 12,
+  });
+}
 
-// function drawCraters(){
+function drawIces() {
+  for (let i = 0; i < iceArray.length; i++) {
+    ctx.drawImage(
+      singleIce,
+      iceArray[i].x,
+      iceArray[i].y,
+      iceArray[i].width,
+      iceArray[i].height
+    );
+    ctx.closePath();
+    iceArray[i].x += 1;
 
-    
-//     for (let i = 0; i < craterArray.length; i++) {
-//         // ctx.beginPath();
-//         // ctx.fillStyle = "black";
-//         // ctx.fillRect(craterArray[i].x, craterArray[i].y, craterArray[i].width, craterArray[i].height);
-//         // ctx.closePath();
-//         // craterArray[i].x +=1    
-// ctx.beginPath();
-// ctx.arc(craterArray[i].x, craterArray[i].y, craterArray[i].radius, 0, 2 * Math.PI, false);
-// ctx.fillStyle = 'black';
-// ctx.fill();
-// ctx.lineWidth = 5;
-// ctx.strokeStyle = '#003300';
-// craterArray[i].x +=1  
-// // ctx.stroke();
+    if (iceArray[i].x == 0) {
+      addMoreIce();
+    }
 
-//         if (craterArray[i].x == 0 ) {
-//             addMoreCraters()
-//         }
+    if (
+      iceArray[i].x < roverArray.x + roverArray.width &&
+      iceArray[i].x + iceArray[i].width > roverArray.x &&
+      iceArray[i].y < roverArray.y + roverArray.height &&
+      iceArray[i].y + iceArray[i].height > roverArray.y
+    ) {
+      iceCollision(i);
+    }
+  }
+}
 
-//         if (craterArray[i].x < rover.x + rover.width &&
-//             craterArray[i].x + craterArray[i].width > rover.x &&
-//             craterArray[i].y < rover.y + rover.height &&
-//             craterArray[i].y + craterArray[i].height > rover.y) {
-//                 craterCollision(i)
-//         }
-//     }
-// }
+function drawGame() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-// function iceCollision(i) {
-//     resource+=1
-//     iceArray.splice(i,1)
+  drawRover();
+  drawCraters();
+  drawIces();
+  drawScore();
+  drawLives();
+}
 
-//     if (resource >= 2) {
-//         addMoreCraters()
-//     }
+window.addEventListener("load", () => {
+  gOver.style.display = "none";
+  canvas.style.display = "none";
+  gWon.style.display = "none";
+  splash.style.display = "block";
 
-//     if (resource >= 3) {
-//         addMoreCraters()
-//     }
+  startBtn.addEventListener("click", () => {
+    startGame();
+  });
 
-//     if (resource == 10) {
-//         gameWon()
-//     }
-// }
+  restartBtn.addEventListener("click", () => {
+    resource = 0;
+    lives = 3;
+    startGame();
+  });
 
-// function addMoreIce() {
-//     iceArray.push( {
-//         x: -70, 
-//         y: Math.floor(Math.random()* 130),
-//         width: 8,
-//         height: 8
-//     }
-//     )
-// }
-
-// function drawIces(){
-
-//     for (let i = 0; i < iceArray.length; i++) {
-//         ctx.beginPath();
-//         ctx.fillStyle = "#47a3ff";
-//         ctx.fillRect(iceArray[i].x, iceArray[i].y, iceArray[i].width, iceArray[i].height);
-//         ctx.closePath();
-//         iceArray[i].x +=1    
-
-//         if (iceArray[i].x == 0 ) {
-//             addMoreIce()
-//         }
-
-//         if (iceArray[i].x < rover.x + rover.width &&
-//             iceArray[i].x + iceArray[i].width > rover.x &&
-//             iceArray[i].y < rover.y + rover.height &&
-//             iceArray[i].y + iceArray[i].height > rover.y) {
-//                 iceCollision(i)
-//         }
-//     }
-// }
-
-// function drawGame(){
-//     ctx.clearRect(0,0, canvas.width, canvas.height)
-    
-//     drawRover()
-//     drawCraters()
-//     drawIces()
-//     drawScore()
-//     drawLives()
-// }
-
-// function togglePause(){
-//     // if (paused == true)
-//     // {
-//     //     clearInterval(intervalId)
-//     //     gamePaused()
-//     //     paused= false;
-//     // } else if (paused == false){
-//     //     paused = true;
-//     //     startGame(intervalId)
-//     //     // drawGame()
-//     //     // requestAnimationFrame(drawGame)
-//     // }
-//     // console.log(paused);
-//     if (!paused) {
-//         pause = 100000
-//         paused = true
-//         console.log(paused);
-//         // gamePaused()
-//     }else if (paused) {
-//         pause = 100
-//         paused = false
-//         console.log(paused);
-
-//         // gameResumed()
-//     }
-
-// }
-
-// window.addEventListener('load', () =>{
-//         gOver.style.display = 'none'
-//         canvas.style.display = 'none'
-//         gWon.style.display = 'none'
-//         gPaused.style.display = "none"
-//         splash.style.display = 'block'
-
-//     startBtn.addEventListener('click', () => {
-//         startGame()    
-//     })
-    
-//     restartBtn.addEventListener('click', () => {
-//         resource = 0;
-//         lives = 3
-//         startGame()    
-//     })
-    
-//     replayBtn.addEventListener('click', () => {
-//         resource = 0;
-//         lives = 3
-//         startGame()    
-//     })
-// })
+  replayBtn.addEventListener("click", () => {
+    resource = 0;
+    lives = 3;
+    startGame();
+  });
+});
